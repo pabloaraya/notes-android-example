@@ -1,4 +1,7 @@
 <resources>
   <string name="app_name">NotesAndroid</string>
   <string name="action_settings">Settings</string>
+  <string name="note_title_new_dialog">Nueva Nota</string>
+  <string name="note_button_accept">GUARDAR</string>
+  <string name="note_button_cancel">IGNORAR</string>
 </resources>

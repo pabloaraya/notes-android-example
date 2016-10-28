@@ -11,4 +11,6 @@ public interface NoteListView {
   void setNoteListManager(RecyclerView.LayoutManager manager);
   void setNoteListAdapter(NoteAdapter adapter);
   void showNoteList(boolean state);
+  void showDialogNewNote();
+  void hideDialogNewNote();
 }

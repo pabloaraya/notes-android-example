@@ -6,12 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by pablo on 10/26/16.
  */
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
-  private String[] mDataset;
+  private List<NoteModel> mDataset;
 
   // Provide a reference to the views for each data item
   // Complex data items may need more than one view per item, and
@@ -25,8 +28,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
     }
   }
 
+  public NoteAdapter() {
+    mDataset = new ArrayList<>();
+  }
   // Provide a suitable constructor (depends on the kind of dataset)
-  public NoteAdapter(String[] myDataset) {
+  public NoteAdapter(List<NoteModel> myDataset) {
     mDataset = myDataset;
   }
 
@@ -46,14 +52,19 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
   public void onBindViewHolder(ViewHolder holder, int position) {
     // - get element from your dataset at this position
     // - replace the contents of the view with that element
-    holder.mTextView.setText(mDataset[position]);
+    holder.mTextView.setText(mDataset.get(position).getMessage());
 
   }
 
   // Return the size of your dataset (invoked by the layout manager)
   @Override
   public int getItemCount() {
-    return mDataset.length;
+    return mDataset.size();
+  }
+
+  public void replaceNotes(List<NoteModel> notes){
+    mDataset = notes;
+    notifyDataSetChanged();
   }
 }
 

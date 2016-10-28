@@ -2,6 +2,7 @@ package org.pabloaraya.notesandroid;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +15,7 @@ public class NoteMainActivity extends AppCompatActivity implements NoteListView{
 
   private RecyclerView mRecyclerView;
   private FloatingActionButton mActionButton;
+  private AlertDialog.Builder dialogNewNote;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -22,12 +24,20 @@ public class NoteMainActivity extends AppCompatActivity implements NoteListView{
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
+    noteListPresenter = new NoteListPresenter(this, this);
+
     mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
     mRecyclerView.setHasFixedSize(true);
 
     mActionButton = (FloatingActionButton) findViewById(R.id.fab);
+    mActionButton.setOnClickListener(view -> showDialogNewNote());
 
-    noteListPresenter = new NoteListPresenter(this, this);
+    dialogNewNote = new AlertDialog.Builder(this, R.style.MyAlertDialogStyle);
+    dialogNewNote.setTitle(R.string.note_title_new_dialog);
+    dialogNewNote.setMessage("Lorem ipsum dolor...");
+    dialogNewNote.setPositiveButton(R.string.note_button_accept, (dialog, witch) -> noteListPresenter.newNote("Message"));
+    dialogNewNote.setNegativeButton(R.string.note_button_cancel, null);
+
     noteListPresenter.initListView();
   }
 
@@ -43,6 +53,16 @@ public class NoteMainActivity extends AppCompatActivity implements NoteListView{
 
   @Override
   public void showNoteList(boolean state) {
+
+  }
+
+  @Override
+  public void showDialogNewNote(){
+    dialogNewNote.show();
+  }
+
+  @Override
+  public void hideDialogNewNote(){
 
   }
 

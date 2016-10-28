@@ -4,6 +4,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
@@ -14,12 +15,13 @@ import retrofit2.http.Path;
 public class NoteService {
 
   public interface NoteInterfaceService {
-    @GET("{user}/notes")
-    Call<List<NoteModel>> listRepos(@Path("user") String user);
+    @GET("/notes")
+    Call<List<NoteModel>>listNotes();
   }
 
   public NoteInterfaceService api(){
     Retrofit retrofit = new Retrofit.Builder()
+      .addConverterFactory(GsonConverterFactory.create())
       .baseUrl(App.API_URL)
       .build();
 
